@@ -1,5 +1,17 @@
+#require 'pry'
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
+
+post '/reviews' do
+  #binding.pry
+  review = Review.create(
+    score: params[:score],
+    comment: params[:comment],
+    game_id: params[:game_id],
+    user_id: params[:user_id]
+  )
+  review.to_json
+end
 
   get '/games' do
     games = Game.all.order(:title).limit(10)
